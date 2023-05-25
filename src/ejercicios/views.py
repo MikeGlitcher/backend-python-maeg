@@ -19,7 +19,7 @@ def instance_repair(instance, queryset=None, title=None):
         instance.id = None
 
         for element in ids:
-            print(f"\n {element} \n")
+            
             if element != reference:
                 instance.id = reference
                 break
@@ -39,7 +39,7 @@ def instance_repair(instance, queryset=None, title=None):
     return [instance.id, conca.strip()]
 
 
-def product_model_list_view(request, rest=False):
+def product_model_list_view(request, rest=False, pk=None):
     if not rest:
         query = request.GET.get("q", None)
         queryset = ProductModels.objects.all()
@@ -69,9 +69,36 @@ def product_model_list_view(request, rest=False):
         return render(request, template, context)
     
     else:
-        queryset = ProductModels.objects.all()
-        serialized_data = serializers.serialize('json', queryset)
-        return serialized_data
+        if rest == "retrieve":
+    
+            instance = get_object_or_404(ProductModels, id=pk)
+
+            return {"product": instance.title}
+        
+        elif rest == "upd":
+            instance = get_object_or_404(ProductModels, id=pk)
+
+            return {
+                "title": instance.title,
+                "price": instance.price,
+                "description": instance.description,
+                "color": instance.color
+            }
+        elif rest == "p_upd":
+            instance = get_object_or_404(ProductModels, id=pk)
+
+            return {
+                "id_" : instance.id,
+                "title": instance.title,
+                "price": instance.price,
+                "description": instance.description,
+                "color": instance.color
+            }
+
+        else:
+            queryset = ProductModels.objects.all()
+            serialized_data = serializers.serialize('json', queryset)
+            return serialized_data
 
 def product_model_create_view(request, rest_data=False):
     

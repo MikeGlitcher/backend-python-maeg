@@ -1,17 +1,15 @@
 from rest_framework import serializers
 
-class FunctionSerializer(serializers.Serializer):
-    id_ = serializers.IntegerField(required=False)
+class MenuSerializer(serializers.Serializer):
+    task = serializers.CharField(required=True)
+
+class SearchSerializer(serializers.Serializer):
+    search = serializers.CharField(required=True)
 
 class BaseSerializer(serializers.Serializer):
     id_ = serializers.IntegerField(required=False)
-    product = serializers.CharField(required=True)
+    title = serializers.CharField(required=True)
     price = serializers.FloatField(required=True)
     description = serializers.CharField(required=True)
     color = serializers.CharField(required=True)
 
-class CreateSerializer(serializers.Serializer):
-    product = serializers.CharField(required=True)
-    price = serializers.FloatField(required=True)
-    description = serializers.CharField(required=True)
-    color = serializers.CharField(required=True)
