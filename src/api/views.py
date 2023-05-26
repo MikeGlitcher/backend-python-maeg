@@ -9,6 +9,11 @@ from rest_framework.viewsets import ViewSet
 from django.shortcuts import redirect
 import re
 
+from rest_framework import generics
+from ejercicios.pagination import ProductLOPagination
+from api.serialize import ProductSerializers
+from ejercicios.models import ProductModels
+
 
 prepare_delete_id, pu_id = None, None
 
@@ -138,6 +143,7 @@ class ProductViewSet(views.APIView):
         else:
             return Response({"alerta": product_model_delete_view(request, pk, rest=True)})
 
+       
 class TestViewset(ViewSet):
     """Regresa un listado de caracteristicas de los Viewsets"""
 
@@ -215,6 +221,7 @@ class TestViewset(ViewSet):
 
 
 class ReaderMenu(views.APIView):
+
     serializer_class = MenuSerializer
 
     def get(self, request):
@@ -302,3 +309,9 @@ class ReaderMenu(views.APIView):
                         return redirect("menu")
                 except IndexError:
                     return redirect(f"tv{task}")
+
+
+class ProductListView(generics.ListAPIView):
+    queryset = ProductModels.objects.all()
+    serializer_class = ProductSerializers
+    pagination_class = ProductLOPagination

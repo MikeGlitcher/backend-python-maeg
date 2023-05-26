@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import ProductViewSet, TestViewset, ReaderMenu
+from .views import ProductViewSet, TestViewset, ReaderMenu, ProductListView
 
 urlpatterns = [
     path("", ProductViewSet.as_view()),
     path("menu", ReaderMenu.as_view(),name="menu"),
+    path("pag/", ProductListView.as_view(),name="pag"),
 
     path("tvcreate/", TestViewset.as_view({"post": "create", "get": "create"}), name="tvcreate"),
     path("tvupdate/", TestViewset.as_view({"put": "update", "get": "create"}), name="tvupdate"),

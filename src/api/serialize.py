@@ -1,10 +1,11 @@
 from rest_framework import serializers
 
+from ejercicios.models import ProductModels
+
 class MenuSerializer(serializers.Serializer):
     task = serializers.CharField(required=True)
 
-class SearchSerializer(serializers.Serializer):
-    search = serializers.CharField(required=True)
+
 
 class BaseSerializer(serializers.Serializer):
     id_ = serializers.IntegerField(required=False)
@@ -13,3 +14,9 @@ class BaseSerializer(serializers.Serializer):
     description = serializers.CharField(required=True)
     color = serializers.CharField(required=True)
 
+
+
+class ProductSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = ProductModels
+        fields  = ["id", "title", "price"]

@@ -8,7 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.db.models import Q
 
-# Create your views here.
+
 
 def instance_repair(instance, queryset=None, title=None):
     if queryset:
