@@ -24,9 +24,32 @@ DEBUG = bool(strtobool(os.getenv("DEBUG", "false")))
 allowed_hosts = os.getenv("ALLOWED_HOSTS", ".localhost,127.0.0.1,[::1]")
 ALLOWED_HOSTS = list(map(str.strip, allowed_hosts.split(",")))
 
+LOGIN_URL = "/admin/login/"
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASES': [
+        "rest_framework.renderers,JSONRender",
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASES': [
+        "rest_framework.authentication.TokenAuthentication",
+    ]
+}
+
 # Application definitions
 INSTALLED_APPS = [
-    "pages.apps.PagesConfig",
+    "auth_app.apps.AuthAppConfig",
+    "rest_framework.authtoken",
+
+    "api.apps.ApiConfig",
+    "rest_framework",
+    "rest_examples.apps.RestExamplesConfig",
+    "ejercicios.apps.EjerciciosConfig",
+    #"products.apps.ProductsConfig",    
+    "ecommerce.apps.EcommerceConfig",
+    #"pages.apps.PagesConfig",
+    "forms_test.apps.FormsTestConfig",
+    "test_templates.apps.TestTemplatesConfig",    
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -51,7 +74,10 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [
+            #os.path.join(BASE_DIR, "templates"),
+            os.path.join(BASE_DIR, "ejercicios/templates")
+            ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

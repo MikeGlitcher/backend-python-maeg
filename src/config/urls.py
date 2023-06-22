@@ -18,7 +18,15 @@ from django.urls import include
 from django.urls import path
 
 urlpatterns = [
-    path("up/", include("up.urls")),
-    path("", include("pages.urls")),
+    # path("up/", include("up.urls")),
+    # path("", include("pages.urls")),
+    path("ecommerce/", include("ecommerce.urls")),
+    # path("products/", include("products.urls")),
     path("admin/", admin.site.urls),
+    # path("forms/", include("forms_test.urls")),
+    # path("test_templates/", include("test_templates.urls")),
+    path("api/v1/", include("api.urls")),
+    path("api/v2/", include("rest_examples.urls")),
+    path("ejercicios/", include("ejercicios.urls")),
+    path("account/", include("auth_app.urls")),
 ]
